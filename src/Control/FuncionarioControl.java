@@ -90,7 +90,7 @@ public class FuncionarioControl {
         return retorno;
     }
     
-    public String deletarCliente(funcionario fun) {
+    public String deletar(funcionario fun) {
         String retorno = "";
         Conexao c = new Conexao();
         c.conectar();
