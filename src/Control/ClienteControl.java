@@ -8,7 +8,6 @@ package Control;
 import Model.cliente;
 import Model.veiculo;
 import Util.Conexao;
-import java.rmi.RemoteException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
