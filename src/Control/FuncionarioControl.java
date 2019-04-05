@@ -21,7 +21,6 @@ public class FuncionarioControl {
     public String inserirFuncionario(funcionario fun){
         String retorno = "";
         Conexao c = new Conexao();
-        c.conectar();
         String sql = "insert into funcionario (id, cargo, cpf, nome, salario) values (?,?,?,?,?)";
         try {
             PreparedStatement sentenca = c.conexao.prepareStatement(sql);
@@ -70,7 +69,6 @@ public class FuncionarioControl {
     public String alterarFuncionario(funcionario fun){
         String retorno = "";
         Conexao c = new Conexao();
-        c.conectar();
         String sql = "update cliente set cargo=?, cpf=?, nome=?, salario=? where id =? ";
         
         try {
@@ -93,7 +91,6 @@ public class FuncionarioControl {
     public String deletar(funcionario fun) {
         String retorno = "";
         Conexao c = new Conexao();
-        c.conectar();
         String sql = "delete from funcionario where id=?";
         try {
             PreparedStatement sentenca = c.conexao.prepareStatement(sql);

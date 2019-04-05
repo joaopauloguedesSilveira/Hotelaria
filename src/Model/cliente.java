@@ -13,13 +13,13 @@ public class cliente {
     private int id;
     private String Clinome;
     private String CliCpf;
-    private veiculo id_vei;
+    private int id_vei;
     
     public cliente(){
         
     }
 
-    public cliente(int id, String Clinome, String CliCpf, veiculo id_vei) {
+    public cliente(int id, String Clinome, String CliCpf, int id_vei) {
         this.id = id;
         this.Clinome = Clinome;
         this.CliCpf = CliCpf;
@@ -50,11 +50,11 @@ public class cliente {
         this.CliCpf = CliCpf;
     }
 
-    public veiculo getId_vei() {
+    public int getId_vei() {
         return id_vei;
     }
 
-    public void setId_vei(veiculo id_vei) {
+    public void setId_vei(int id_vei) {
         this.id_vei = id_vei;
     }
     

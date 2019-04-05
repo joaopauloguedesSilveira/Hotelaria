@@ -23,14 +23,13 @@ public class VeiculoControl {
     public String cadastrarVeiculo( veiculo vei){
         String retorno = "";
         Conexao con = new Conexao();
-        String sql = "insert into veiculo values(?,?,?,?,?)";
+        String sql = "insert into veiculo values(?,?,?,?)";
          try {
             PreparedStatement sentenca = con.conexao.prepareStatement(sql);
             sentenca.setInt(1,vei.getId_vei());
             sentenca.setString(2, vei.getPlaca_vei());
             sentenca.setString(3, vei.getModelo_vei());
             sentenca.setString(4, vei.getAno_vei());
-            sentenca.setObject(5, vei.getId_cli());
             if(sentenca.execute())
             retorno = "Dados inseridos com sucesso!";
             else
@@ -54,7 +53,6 @@ public class VeiculoControl {
             sentenca.setString(1, vei.getPlaca_vei());
             sentenca.setString(2, vei.getModelo_vei());
             sentenca.setString(3, vei.getAno_vei());
-            sentenca.setObject(4, vei.getId_cli());
             if(sentenca.execute())
             retorno = "Dados editados com sucesso!";
             else
@@ -89,21 +87,20 @@ public class VeiculoControl {
        return retorno;   
      }
       
-      public veiculo selecionarFuncio(veiculo vei){
+      public veiculo selecionarVei(veiculo vei){
          veiculo retorno = new veiculo();
         Conexao con = new Conexao();
-        String sql = "Select * from veiculo where id_vei = ?";//qdo faz select BD manda dados par aplicaçao, ai precisa usar executeQuery
+        String sql = "Select * from veiculo where placa_vei = ?";//qdo faz select BD manda dados par aplicaçao, ai precisa usar executeQuery
 
          try{//é tratamento de excessao no sql
               PreparedStatement sentenca = con.conexao.prepareStatement(sql);
-              sentenca.setInt(1, vei.getId_vei());
+              sentenca.setString(1, vei.getPlaca_vei());
               ResultSet rs = sentenca.executeQuery();
               if(rs.next()){//aqui é um nó onde anda no final da lista ate achar null
                   retorno = new veiculo();
                   retorno.setAno_vei(rs.getString("ano_vei"));
                   retorno.setModelo_vei(rs.getString("modelo_vei"));
-                  retorno.setPlaca_vei(rs.getString("placa_vei"));
-                  retorno.setId_cli(rs.getObject("id_cli", cliente.class));
+                  retorno.setPlaca_vei(rs.getString("id_vei"));
 
               }
           }catch(SQLException ex){
@@ -114,7 +111,7 @@ public class VeiculoControl {
          return retorno;    
      }
       
-       public ArrayList<veiculo>selecionaTodosCarrosCli(){
+    public ArrayList<veiculo>selecionaTodosCarrosCli(){
          
         ArrayList<veiculo> lista = new ArrayList<>();
         Conexao con = new Conexao();
@@ -128,7 +125,6 @@ public class VeiculoControl {
                 retorno.setAno_vei(rs.getString("ano_vei"));
                 retorno.setModelo_vei(rs.getString("modelo_vei"));
                 retorno.setModelo_vei(rs.getString("modelo_vei"));
-                retorno.setId_cli(rs.getObject("id_cli", cliente.class));
                 
 
                 lista.add(retorno);

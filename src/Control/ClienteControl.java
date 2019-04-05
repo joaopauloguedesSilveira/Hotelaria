@@ -26,13 +26,14 @@ public class ClienteControl {
     public String inserirCliente(cliente cli){
         String retorno = "";
         Conexao c = new Conexao();
-        c.conectar();
-        String sql = "insert into cliente (Clinome, Clicpf, id_vei) values (?,?,?)";
+        
+        String sql = "insert into cliente (id, Clinome, Clicpf) values (?,?,?,?)";
         try {
             PreparedStatement sentenca = c.conexao.prepareStatement(sql);
-            sentenca.setString(1, cli.getClinome());
-            sentenca.setString(2, cli.getCliCpf());
-            sentenca.setObject(3, cli.getId_vei());
+            sentenca.setInt(1, cli.getId());
+            sentenca.setString(2, cli.getClinome());
+            sentenca.setString(3, cli.getCliCpf());
+            sentenca.setInt(4, cli.getId_vei());
             if(!sentenca.execute())
                 retorno = "Dados Inseridos com sucesso";
             else retorno = "Inserção não efetuada";
@@ -43,6 +44,7 @@ public class ClienteControl {
         return retorno;
         
     }
+    
     public cliente selecionarCliente(cliente Cliente){
         cliente retorno = new cliente();
         Conexao con = new Conexao();
@@ -58,7 +60,7 @@ public class ClienteControl {
                   retorno.setId(rs.getInt("id"));
                   retorno.setCliCpf(rs.getString("Clicpf"));
                   retorno.setClinome(rs.getString("Clinome"));
-                  retorno.setId_vei(rs.getObject("id_vei", veiculo.class));
+                  retorno.setId_vei(rs.getInt("id_vei"));
                   
               }
           }catch(SQLException ex){
@@ -72,14 +74,14 @@ public class ClienteControl {
     public String alterarCliente(cliente cli){
         String retorno = "";
         Conexao c = new Conexao();
-        c.conectar();
+        
         String sql = "update cliente set Clinome=?, Clicpf=?, id_vei=? where id =? ";
         
         try {
             PreparedStatement sentenca = c.conexao.prepareStatement(sql);
             sentenca.setString(1, cli.getClinome());
             sentenca.setString(2, cli.getCliCpf());
-            sentenca.setObject(3, cli.getId_vei());
+            sentenca.setInt(3, cli.getId_vei());
             sentenca.setInt(4, cli.getId());
             if(!sentenca.execute())
                 retorno = "Dados alterados com sucesso";
@@ -94,7 +96,6 @@ public class ClienteControl {
     public String deletarCliente(cliente cli) {
         String retorno = "";
         Conexao c = new Conexao();
-        c.conectar();
         String sql = "delete from cliente where id=?";
         try {
             PreparedStatement sentenca = c.conexao.prepareStatement(sql);

@@ -13,7 +13,6 @@ public class login {
     private int id;
     private String login;
     private String senha;
-    private String tipo_usu;
 
     public login() {
     }
@@ -22,7 +21,6 @@ public class login {
         this.id = id;
         this.login = login;
         this.senha = senha;
-        this.tipo_usu = tipo_usu;
     }
 
     public int getId() {
@@ -49,12 +47,4 @@ public class login {
         this.senha = senha;
     }
 
-    public String getTipo_usu() {
-        return tipo_usu;
-    }
-
-    public void setTipo_usu(String tipo_usu) {
-        this.tipo_usu = tipo_usu;
-    }
-    
 }
