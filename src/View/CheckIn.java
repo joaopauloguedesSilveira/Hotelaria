@@ -6,9 +6,11 @@
 package View;
 
 import Control.ClienteControl;
+import Control.HistoricoClienteControl;
 import Control.QuartosControl;
 import Control.VeiculoControl;
 import Model.cliente;
+import Model.historico_cliente;
 import Model.quartos;
 import Model.veiculo;
 import java.util.ArrayList;
@@ -32,7 +34,10 @@ public class CheckIn extends javax.swing.JFrame {
         int x=0;
         ArrayList<quartos> qL;
         qL = QC.selecionarQuartoDisp(q);
-        if(qL == null){
+        if(!qL.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Não existem quartos cadastrados! Por favor cadastre "
+                                                + "os quartos antes ");
+        }else{
             while(qL != null){
                 modelo.addRow(new Object[]{
                     qL.get(x).getId_quart(),
@@ -40,10 +45,7 @@ public class CheckIn extends javax.swing.JFrame {
                     qL.get(x).getVazio_quart()
                 });
                 x++;
-            }   
-        }else{
-            JOptionPane.showMessageDialog(null, "Não existem quartos cadastrados! Por favor cadastre "
-                                                + "os quartos antes ");
+            }
         }
         
         
@@ -279,8 +281,11 @@ public class CheckIn extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         cliente cli = new cliente();
         quartos q = new quartos();
+        quartos q2 = new quartos();
         veiculo vei = new veiculo();
         ArrayList<quartos> qL;
+        HistoricoClienteControl HCC = new HistoricoClienteControl();
+        historico_cliente hc = new historico_cliente();
         ClienteControl CC = new ClienteControl();
         QuartosControl QC = new QuartosControl();
         VeiculoControl VC = new VeiculoControl();
@@ -291,9 +296,20 @@ public class CheckIn extends javax.swing.JFrame {
             cli.setCliCpf(CPFCli.getText());
             cli.setId_vei(0);
             CC.inserirCliente(cli);
+            
+            q.setId_quart(Integer.parseInt(Quart.getText()));
+            q2 = QC.selecionarQuarto(q);
+            if(q == null){
+                JOptionPane.showMessageDialog(this, "Quarto não encontrado!");
+            }else{
+                hc.setDia_cheg(DataIni.getText());
+                hc.setId_cli(cli);
+                hc.setId_quarto(q.getId_quart());
+                HCC.CadastrarHistCliente(hc);
+                
+            }
 
         }else{
-        
             vei.setPlaca_vei(PlacaVei.getText());
             vei.setAno_vei(AnoVei.getText());
             vei.setModelo_vei(ModeloVei.getText());
@@ -304,11 +320,19 @@ public class CheckIn extends javax.swing.JFrame {
             cli.setCliCpf(CPFCli.getText());
             cli.setId_vei(vei2.getId_vei());
             CC.inserirCliente(cli);
+            
+            q.setId_quart(Integer.parseInt(Quart.getText()));
+            q2 = QC.selecionarQuarto(q);
+            if(q == null){
+                JOptionPane.showMessageDialog(this, "Quarto não encontrado!");
+            }else{
+                hc.setDia_cheg(DataIni.getText());
+                hc.setId_cli(cli);
+                hc.setId_quarto(q.getId_quart());
+                HCC.CadastrarHistCliente(hc);
+                
+            }
         }
-        
-        
-        
-        
         
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
