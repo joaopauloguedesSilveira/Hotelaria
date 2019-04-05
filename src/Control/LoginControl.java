@@ -49,7 +49,7 @@ public class LoginControl {
     public login AutenticaLogin(login l){
         login retorno = new login();
         Conexao con = new Conexao();
-        String sql = "Select * from funcionario where login=?";
+        String sql = "Select * from login where login=?";
 
          try{
               PreparedStatement sentenca = con.conexao.prepareStatement(sql);

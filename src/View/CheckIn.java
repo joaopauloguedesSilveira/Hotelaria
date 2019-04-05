@@ -28,6 +28,7 @@ public class CheckIn extends javax.swing.JFrame {
      */
     public CheckIn() {
         initComponents();
+        MenuPrincipal MP = new MenuPrincipal();
         quartos q = new quartos();
         QuartosControl QC = new QuartosControl();
         DefaultTableModel modelo = (DefaultTableModel) Quartos.getModel();
@@ -36,7 +37,9 @@ public class CheckIn extends javax.swing.JFrame {
         qL = QC.selecionarQuartoDisp(q);
         if(!qL.isEmpty()){
             JOptionPane.showMessageDialog(null, "Não existem quartos cadastrados! Por favor cadastre "
-                                                + "os quartos antes ");
+                                                + "os quartos antes!");
+            dispose();
+            MP.setVisible(true);
         }else{
             while(qL != null){
                 modelo.addRow(new Object[]{
@@ -330,7 +333,6 @@ public class CheckIn extends javax.swing.JFrame {
                 hc.setId_cli(cli);
                 hc.setId_quarto(q.getId_quart());
                 HCC.CadastrarHistCliente(hc);
-                
             }
         }
         
